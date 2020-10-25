@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Solaris || A New Journey" />
+    <meta property="og:description" content="N/A :/" />
+    <meta property="og:image" content="https://icons.iconarchive.com/icons/dan-wiersma/solar-system/256/Mars-icon.png" />
+    <link rel="icon" href="https://icons.iconarchive.com/icons/dan-wiersma/solar-system/256/Mars-icon.png" type="image/png" sizes="16x16">
+    <title>Solaris || A New Journey</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+         :root {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: url(https://cdnb.artstation.com/p/assets/images/images/019/259/593/large/domenico-sellaro-one.jpg?1562703704) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        
+        canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .label {
+            color: white;
+        }
+        
+        @keyframes moveBg {
+            0% {
+                background-position: 0% 30%;
+            }
+            100% {
+                background-position: 1000% 500%;
+            }
+        }
+        
+        .middle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            user-select: none;
+        }
+        
+        .time {
+            color: white;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .time span {
+            padding: 0 14px;
+            font-size: 0.8rem;
+        }
+        
+        .time span div {
+            font-size: 3rem;
+        }
+        
+        @media (max-width: 740px) {
+            .label {
+                font-size: 1.7rem;
+            }
+            .time span {
+                padding: 0 16px;
+                font-size: 0.6rem;
+            }
+            .time span div {
+                font-size: 2rem;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 43%;
+            margin-bottom: 20px;
+        }
+        
+        @import url("https://fonts.googleapis.com/css?family=Cardo:400i|Rubik:400,700&display=swap");
+         :root {
+            --d: 700ms;
+            --e: cubic-bezier(0.19, 1, 0.22, 1);
+            --font-sans: 'Rubik', sans-serif;
+            --font-serif: 'Cardo', serif;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        body {
+            display: grid;
+            place-items: center;
+        }
+        
+        .page-content {
+            display: grid;
+            grid-gap: 1rem;
+            padding: 1rem;
+            max-width: 1024px;
+            margin: 0 auto;
+            font-family: var(--font-sans);
+        }
+        
+        @media (min-width: 600px) {
+            .page-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 800px) {
+            .page-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        p {
+            color: white;
+        }
+        
+        .card {
+            position: relative;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: end;
+            align-items: flex-end;
+            overflow: hidden;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+            color: whitesmoke;
+            background-color: whitesmoke;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1), 0 16px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (min-width: 600px) {
+            .card {
+                height: 350px;
+            }
+        }
+        
+        .card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110%;
+            background-size: cover;
+            background-position: 0 0;
+            -webkit-transition: -webkit-transform calc(var(--d) * 1.5) var(--e);
+            transition: -webkit-transform calc(var(--d) * 1.5) var(--e);
+            transition: transform calc(var(--d) * 1.5) var(--e);
+            transition: transform calc(var(--d) * 1.5) var(--e), -webkit-transform calc(var(--d) * 1.5) var(--e);
+            pointer-events: none;
+        }
+        
+        .card:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200%;
+            pointer-events: none;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), color-stop(11.7%, rgba(0, 0, 0, 0.009)), color-stop(22.1%, rgba(0, 0, 0, 0.034)), color-stop(31.2%, rgba(0, 0, 0, 0.072)), color-stop(39.4%, rgba(0, 0, 0, 0.123)), color-stop(46.6%, rgba(0, 0, 0, 0.182)), color-stop(53.1%, rgba(0, 0, 0, 0.249)), color-stop(58.9%, rgba(0, 0, 0, 0.32)), color-stop(64.3%, rgba(0, 0, 0, 0.394)), color-stop(69.3%, rgba(0, 0, 0, 0.468)), color-stop(74.1%, rgba(0, 0, 0, 0.54)), color-stop(78.8%, rgba(0, 0, 0, 0.607)), color-stop(83.6%, rgba(0, 0, 0, 0.668)), color-stop(88.7%, rgba(0, 0, 0, 0.721)), color-stop(94.1%, rgba(0, 0, 0, 0.762)), to(rgba(0, 0, 0, 0.79)));
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.009) 11.7%, rgba(0, 0, 0, 0.034) 22.1%, rgba(0, 0, 0, 0.072) 31.2%, rgba(0, 0, 0, 0.123) 39.4%, rgba(0, 0, 0, 0.182) 46.6%, rgba(0, 0, 0, 0.249) 53.1%, rgba(0, 0, 0, 0.32) 58.9%, rgba(0, 0, 0, 0.394) 64.3%, rgba(0, 0, 0, 0.468) 69.3%, rgba(0, 0, 0, 0.54) 74.1%, rgba(0, 0, 0, 0.607) 78.8%, rgba(0, 0, 0, 0.668) 83.6%, rgba(0, 0, 0, 0.721) 88.7%, rgba(0, 0, 0, 0.762) 94.1%, rgba(0, 0, 0, 0.79) 100%);
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: -webkit-transform calc(var(--d) * 2) var(--e);
+            transition: -webkit-transform calc(var(--d) * 2) var(--e);
+            transition: transform calc(var(--d) * 2) var(--e);
+            transition: transform calc(var(--d) * 2) var(--e), -webkit-transform calc(var(--d) * 2) var(--e);
+        }
+        
+        .card:nth-child(1):before {
+            background-image: url(https://cdnb.artstation.com/p/assets/images/images/002/341/425/smaller_square/dominik-mayer-born-in-fire.jpg?1460499014);
+        }
+        
+        .card:nth-child(2):before {
+            background-image: url(https://cdnb.artstation.com/p/assets/images/images/019/402/319/smaller_square/ricky-ho-ricky-ho-snow-temple-02.jpg?1563322515);
+        }
+        
+        .card:nth-child(3):before {
+            background-image: url(https://cdna.artstation.com/p/assets/images/images/023/888/896/20200202135317/smaller_square/andrew-krivulya-render-post.jpg?1580673197);
+        }
+        
+        .card:nth-child(4):before {
+            background-image: url(https://cdna.artstation.com/p/assets/images/images/003/270/266/20160821235528/smaller_square/andrew-price-render12-final.jpg?1471841728);
+        }
+        
+        .content {
+            position: relative;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            flex-direction: column;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 100%;
+            padding: 1rem;
+            -webkit-transition: -webkit-transform var(--d) var(--e);
+            transition: -webkit-transform var(--d) var(--e);
+            transition: transform var(--d) var(--e);
+            transition: transform var(--d) var(--e), -webkit-transform var(--d) var(--e);
+            z-index: 1;
+        }
+        
+        .content>*+* {
+            margin-top: 1rem;
+        }
+        
+        .title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
+        .copy {
+            font-family: var(--font-serif);
+            font-size: 1.125rem;
+            font-style: italic;
+            line-height: 1.35;
+        }
+        
+        .btn {
+            cursor: pointer;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.65rem;
+            font-weight: bold;
+            letter-spacing: 0.025rem;
+            text-transform: uppercase;
+            color: white;
+            background-color: black;
+            border: none;
+        }
+        
+        .btn:hover {
+            background-color: #0d0d0d;
+        }
+        
+        .btn:focus {
+            outline: 1px dashed yellow;
+            outline-offset: 3px;
+        }
+        
+        @media (hover: hover) and (min-width: 600px) {
+            .card:after {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+            .content {
+                -webkit-transform: translateY(calc(100% - 4.5rem));
+                transform: translateY(calc(100% - 4.5rem));
+            }
+            .content>*:not(.title) {
+                opacity: 0;
+                -webkit-transform: translateY(1rem);
+                transform: translateY(1rem);
+                -webkit-transition: opacity var(--d) var(--e), -webkit-transform var(--d) var(--e);
+                transition: opacity var(--d) var(--e), -webkit-transform var(--d) var(--e);
+                transition: transform var(--d) var(--e), opacity var(--d) var(--e);
+                transition: transform var(--d) var(--e), opacity var(--d) var(--e), -webkit-transform var(--d) var(--e);
+            }
+            .card:hover,
+            .card:focus-within {
+                -webkit-box-align: center;
+                align-items: center;
+            }
+            .card:hover:before,
+            .card:focus-within:before {
+                -webkit-transform: translateY(-4%);
+                transform: translateY(-4%);
+            }
+            .card:hover:after,
+            .card:focus-within:after {
+                -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+            .card:hover .content,
+            .card:focus-within .content {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+            .card:hover .content>*:not(.title),
+            .card:focus-within .content>*:not(.title) {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+                -webkit-transition-delay: calc(var(--d) / 8);
+                transition-delay: calc(var(--d) / 8);
+            }
+            .card:focus-within:before,
+            .card:focus-within:after,
+            .card:focus-within .content,
+            .card:focus-within .content>*:not(.title) {
+                -webkit-transition-duration: 0s;
+                transition-duration: 0s;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="middle">
+        <h1 class="label">Solaris
+        </h1>
+        <div class="time">
+            <span>
+						<div id="d">00</div>
+						Days
+					</span>
+            <span>
+						<div id="h">00</div>
+						Hours
+					</span>
+            <span>
+						<div id="m">00</div>
+						Minutes
+					</span>
+            <span>
+						<div id="s">00</div>
+						Seconds
+					</span>
+        </div>
+        <p>A New Story Every 5 Days</p>
+    </div>
+    <footer>
+        <audio autoplay="true" loop="true" controls="true" __idm_id__="535818241"><source src="https://raw.githubusercontent.com/fortniteseller/fortnite-account-for-sale/master/soal.mp3"></audio>
+    </footer>
+
+    <main class="page-content">
+        <div class="card">
+            <div class="content">
+                <h2 class="title">Hades</h2>
+                <p class="copy">The Journey To The Overworld is ready.</p>
+                <button class="btn">View Trips</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2 class="title">Kryos</h2>
+                <p class="copy">Frozen Like Moon</p>
+                <button class="btn">View Trips</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2 class="title">Raven</h2>
+                <p class="copy">The Best Biome Inside A Cave</p>
+                <button class="btn">Book Now</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2 class="title">Explore The Galaxy</h2>
+                <p class="copy">Seriously, straight up, just blast off into outer space today</p>
+                <button class="btn">Book Now</button>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Happy New Year!!!
+        //
+        // Basically I just combined three great ideas :)
+        // Canvas Snow, Countdown and Text Background Animation with CSS
+        //
+        // This awesome Canvas Snow was created along with Paul Lewis:
+        // https://www.youtube.com/watch?v=VW8qoyYzWGg&t
+        //
+        ////////////////////////////////////////////////////////////
+        // Simple CountDown Clock
+
+        const d = document.getElementById("d");
+        const h = document.getElementById("h");
+        const m = document.getElementById("m");
+        const s = document.getElementById("s");
+
+        function getTrueNumber(num) {
+            return num < 10 ? "0" + num : num;
+        }
+
+        function calculateRemainingTime() {
+            const comingYear = 2020;
+            const comingDate = new Date(`Nov 10, ${comingYear} 00:00:00`);
+
+            const now = new Date();
+            const remainingTime = comingDate.getTime() - now.getTime();
+            const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+            d.innerHTML = getTrueNumber(days);
+            h.innerHTML = getTrueNumber(hours);
+            m.innerHTML = getTrueNumber(mins);
+            s.innerHTML = getTrueNumber(secs);
+
+            return remainingTime;
+        }
+
+        function initCountdown() {
+            const interval = setInterval(() => {
+                const remainingTimeInMs = calculateRemainingTime();
+
+                if (remainingTimeInMs <= 1000) {
+                    clearInterval(interval);
+                    initCountdown();
+                }
+            }, 1000);
+        }
+
+        initCountdown();
+    </script>
+</body>
+
+</html>
